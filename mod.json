@@ -1,6 +1,9 @@
 {
 	"geode": "2.0.0-beta.16",
-	"gd": "2.204",
+	"gd": {
+		"win": "2.204",
+		"android": "2.205"
+	},
 	"version": "v1.0.0",
 	"id": "undefined0.autocheckpoint",
 	"name": "AutoCheckpoint",
@@ -56,7 +59,7 @@
 		"direction": {
 			"name": "Checkpoint on direction change",
 			"description": "Whether a checkpoint is placed when your direction is changed.",
-			"default": false,
+			"default": true,
 			"type": "bool"
 		},
 		"DEBUG": {
