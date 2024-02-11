@@ -8,7 +8,7 @@
 	"id": "undefined0.autocheckpoint",
 	"name": "AutoCheckpoint",
 	"developer": "undefined0",
-	"description": "Are your hands getting tired or pressing X? Here's a mod that'll fix that.",
+	"description": "You'll never need to touch Z again!",
 	"settings": {
 		"min-delay": {
 			"name": "Minimum wait",
@@ -63,7 +63,7 @@
 			"type": "bool"
 		},
 		"DEBUG": {
-			"name": "Debug logs",
+			"name": "DEBUG (logs)",
 			"description": "Whether logs are enabled - leave this off if debugging other mods and actually want to be able to read the logs of other mods.",
 			"default": false,
 			"type": "bool"
