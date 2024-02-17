@@ -12,10 +12,10 @@
 	"incompatibilities": [
 		{
 			"id": "spaghettdev.gd-roulette",
-			"version": "*",
+			"version": ">=1.6.2",
 			"importance": "breaking"
 		}
-	]
+	],
 	"settings": {
 		"min-delay": {
 			"name": "Minimum wait",
