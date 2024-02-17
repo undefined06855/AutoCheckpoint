@@ -9,6 +9,13 @@
 	"name": "AutoCheckpoint",
 	"developer": "undefined0",
 	"description": "You'll never need to touch Z again!",
+	"incompatibilities": [
+		{
+			"id": "spaghettdev.gd-roulette",
+			"version": "*",
+			"importance": "breaking"
+		}
+	]
 	"settings": {
 		"min-delay": {
 			"name": "Minimum wait",
