@@ -106,6 +106,9 @@ class $modify(GJBaseGameLayer)
 	{
 		GJBaseGameLayer::update(dt);
 
+		// maybe fixes stuff?? idk
+		if (!this->m_isPracticeMode) return;
+
 		if (cmpint(gamemode, getGamemodeAsInt(this->m_player1), "gamemode"))
 			placeCheckpointNextFrame = true;
 
