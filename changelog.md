@@ -1,4 +1,8 @@
 # Changelog (what a suprise)
+## v1.1.0
+- Added "Block checkpoints while dying"
+- Added "...               while dashing"
+- Removed unnecessary debug logs
 ## v1.0.1
 - Added tags
 ## v1.0.0

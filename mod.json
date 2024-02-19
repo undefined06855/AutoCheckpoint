@@ -4,7 +4,7 @@
 		"win": "2.204",
 		"android": "2.205"
 	},
-	"version": "v1.0.1",
+	"version": "v1.1.0",
 	"id": "undefined0.autocheckpoint",
 	"name": "AutoCheckpoint",
 	"developer": "undefined0",
@@ -28,11 +28,23 @@
 		},
 		"max-delay": {
 			"name": "Maximum wait",
-			"description": "How long it has to be before a checkpoint is forced to be placed (in seconds).",
+			"description": "How long it has to be before a checkpoint is forced to be placed (in seconds). Setting this to 0 places a checkpoint every frame.",
 			"type": "float",
 			"default": 10,
 			"min": 0,
 			"max": 15
+		},
+		"dash": {
+			"name": "Block checkpoints while dashing",
+			"description": "Whether checkpoints are not placed while dashing",
+			"default": true,
+			"type": "bool"
+		},
+		"death": {
+			"name": "Block checkpoints while dying",
+			"description": "Whether checkpoints are not placed while dying",
+			"default": true,
+			"type": "bool"
 		},
 		"gamemode": {
 			"name": "Checkpoint on gamemode change",

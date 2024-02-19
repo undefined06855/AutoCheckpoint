@@ -34,11 +34,20 @@ bool cmpfloat(float first, float second, std::string lockSetting)
 	return ((first != second) && Mod::get()->getSettingValue<bool>(lockSetting));
 }
 
+bool needsToBeBlocked(PlayLayer* h)
+{
+	return \
+		(h->m_player1->m_isDashing && Mod::get()->getSettingValue<bool>("dash")) ||
+		(h->m_player1->m_isDead && Mod::get()->getSettingValue<bool>("death"))
+	;
+}
+
 bool placeCheckpointNextFrame = false;
 
 auto lastChk = std::chrono::high_resolution_clock::now();
 
 class $modify(PlayLayer) {
+	// ok so sometimes this causes gd's anticheat to trip and I have zero clue why (ctrl+f to find the other one that might)
 	void postUpdate(float dt)
 	{
 		PlayLayer::postUpdate(dt);
@@ -51,21 +60,18 @@ class $modify(PlayLayer) {
 		auto diff = std::chrono::duration_cast<std::chrono::seconds>(now - lastChk).count();
 
 
-		if (placeCheckpointNextFrame && diff >= Mod::get()->getSettingValue<double>("min-delay") && !this->m_player1->m_isDashing)
+		if (placeCheckpointNextFrame && diff >= Mod::get()->getSettingValue<double>("min-delay") && !needsToBeBlocked(this))
 		{
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (placeCheckpointNextFrame && this->m_player1->m_isDashing) debLog("player is dashing - cant place");
-		else if (placeCheckpointNextFrame) debLog("hasnt been long enough (" + std::to_string(diff) + ")");
 
-		if (diff >= Mod::get()->getSettingValue<double>("max-delay") && !this->m_player1->m_isDashing)
+		if (diff >= Mod::get()->getSettingValue<double>("max-delay") && !needsToBeBlocked(this))
 		{
 			debLog("been too long! (" + std::to_string(diff) + ")");
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (diff >= Mod::get()->getSettingValue<double>("max-delay")) debLog("been too long BUT PLAYER IS DASHING :despair:");
 
 		placeCheckpointNextFrame = false;
 	}
@@ -102,6 +108,7 @@ class $modify(GJBaseGameLayer)
 	}
 
 	// for things that don't have hooks -------------------------------------------------------------------
+	// ok so sometimes this causes gd's anticheat to trip and I have zero clue why (ctrl+f to find the other one that might)
 	void update(float dt)
 	{
 		GJBaseGameLayer::update(dt);
