@@ -9,6 +9,7 @@
 	"name": "AutoCheckpoint",
 	"developer": "undefined0",
 	"description": "You'll never need to touch Z again!",
+	"repository": "https://github.com/undefined06855/AutoCheckpoint",
 	"tags": [ "gameplay", "enhancement" ],
 	"incompatibilities": [
 		{
