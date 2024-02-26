@@ -1,6 +1,7 @@
 #include <Geode/Geode.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
+#include <Geode/modify/PauseLayer.hpp>
 #include <chrono>
 
 using namespace geode::prelude;
@@ -129,5 +130,51 @@ class $modify(GJBaseGameLayer)
 		gamemode = getGamemodeAsInt(this->m_player1);
 		speed = this->m_player1->m_playerSpeed;
 		size = this->m_player1->m_vehicleSize;
+	}
+};
+
+// enabled toggle
+class $modify(MyPauseLayer, PauseLayer)
+{
+	void onAutoCheckpointSettings(CCObject* object)
+	{
+		std::cout << "setin" << std::endl;
+	}
+	
+	void customSetup()
+	{
+		std::cout << "custmsetup" << std::endl;
+		PauseLayer::customSetup();
+
+		auto* lbm = this->getChildByID("left-button-menu");
+		if (!lbm)
+		{
+			// no left button menu this is so sad rip right button menu :(
+
+			std::cout << "no left button menu :(" << std::endl;
+			return;
+		}
+
+		auto* spr = CCSprite::create("logo.png"_spr);
+		auto settingsBtn = CCMenuItemSpriteExtra::create(
+			spr,
+			this,
+			menu_selector(MyPauseLayer::onAutoCheckpointSettings)
+		);
+		settingsBtn->setID("settings-button"_spr);
+		lbm->addChild(settingsBtn);
+
+
+		// this is so broken and will 100% break with other mods (only tested with click sounds) but oh well :)
+		if (auto rawLayout = lbm->getLayout()) {
+			if (auto layout = typeinfo_cast<AxisLayout*>(rawLayout)) {
+				layout->setCrossAxisOverflow(false);
+				layout->setAutoScale(false);
+			}
+		}
+
+		settingsBtn->setScale(0.3);
+		settingsBtn->m_baseScale = 0.3;
+		lbm->updateLayout();
 	}
 };
