@@ -23,7 +23,7 @@
 	"tags": [ "gameplay", "enhancement" ],
 
 	"settings": {
-		"enabl": {
+		"enabled": {
 			"name": "Enabled",
 			"type": "bool",
 			"default": true,
