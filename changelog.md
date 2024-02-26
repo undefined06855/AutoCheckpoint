@@ -3,7 +3,7 @@
 - Added "Block checkpoints while dying"
 - Added "...               while dashing"
 - Removed unnecessary debug logs
-- added 
+- added settings menu
 ## v1.0.1
 - Added tags
 ## v1.0.0
