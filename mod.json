@@ -92,12 +92,6 @@
 			"description": "Whether a checkpoint is placed when your direction is changed.",
 			"default": true,
 			"type": "bool"
-		},
-		"DEBUG": {
-			"name": "DEBUG (logs)",
-			"description": "Whether logs are enabled - leave this off if debugging other mods and actually want to be able to read the logs of other mods.",
-			"default": false,
-			"type": "bool"
 		}
 	}
 }

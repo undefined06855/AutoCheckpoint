@@ -1,4 +1,5 @@
 #include <Geode/Geode.hpp>
+#include <Geode/ui/GeodeUI.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
 #include <Geode/modify/PauseLayer.hpp>
@@ -21,7 +22,7 @@ int getGamemodeAsInt(PlayerObject* player)
 
 void debLog(std::string str)
 {
-	if (Mod::get()->getSettingValue<bool>("DEBUG"))
+	//if (Mod::get()->getSettingValue<bool>("DEBUG"))
 		std::cout << str << std::endl;
 }
 
@@ -131,7 +132,7 @@ class $modify(MyPauseLayer, PauseLayer)
 {
 	void onAutoCheckpointSettings(CCObject* object)
 	{
-		std::cout << "setin" << std::endl;
+		geode::openSettingsPopup(Mod::get());
 	}
 	
 	void customSetup()
@@ -161,7 +162,7 @@ class $modify(MyPauseLayer, PauseLayer)
 		// this is so broken and will 100% break with other mods (only tested with click sounds) but oh well :)
 		if (auto rawLayout = lbm->getLayout()) {
 			if (auto layout = typeinfo_cast<AxisLayout*>(rawLayout)) {
-				layout->setCrossAxisOverflow(false);
+				layout->setCrossAxisOverflow(true);
 				layout->setAutoScale(false);
 			}
 		}
