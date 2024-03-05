@@ -92,6 +92,12 @@
 			"description": "Whether a checkpoint is placed when your direction is changed.",
 			"default": true,
 			"type": "bool"
+		},
+		"pause-layer-btn": {
+			"name": "Pause menu button",
+			"description": "Whether the paues menu button is enabled or not.",
+			"type": "bool",
+			"default": true
 		}
 	}
 }
