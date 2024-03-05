@@ -95,7 +95,7 @@
 		},
 		"pause-layer-btn": {
 			"name": "Pause menu button",
-			"description": "Whether the paues menu button is enabled or not.",
+			"description": "Whether the pause menu button is enabled or not (what would you think this does?).",
 			"type": "bool",
 			"default": true
 		}
