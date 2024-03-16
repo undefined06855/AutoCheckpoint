@@ -93,6 +93,12 @@
 			"default": true,
 			"type": "bool"
 		},
+		"rotate": {
+			"name": "Checkpoint on rotation change",
+			"description": "Whether a checkpoint is placed when your rotation is changed.",
+			"default": true,
+			"type": "bool"
+		},
 		"pause-layer-btn": {
 			"name": "Pause menu button",
 			"description": "Whether the pause menu button is enabled or not (what would you think this does?).",

@@ -1,24 +1,9 @@
-#include <Geode/Geode.hpp>
-#include <Geode/ui/GeodeUI.hpp>
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
-#include <Geode/modify/PauseLayer.hpp>
+#include "./PauseButton.cpp"
 #include <chrono>
 
 using namespace geode::prelude;
-
-int getGamemodeAsInt(PlayerObject* player)
-{
-	if (player->m_isShip) return 1;
-	if (player->m_isBall) return 2;
-	if (player->m_isBird) return 3; // ufo
-	if (player->m_isDart) return 4; // wave
-	if (player->m_isRobot) return 5;
-	if (player->m_isSpider) return 6;
-	if (player->m_isSwing) return 7;
-
-	return 0; // cube
-}
 
 void debLog(std::string str)
 {
@@ -40,7 +25,8 @@ bool placeCheckpointNextFrame = false;
 
 auto lastChk = std::chrono::high_resolution_clock::now();
 
-class $modify(PlayLayer) {
+class $modify(PlayLayer)
+{
 	void postUpdate(float dt)
 	{
 		PlayLayer::postUpdate(dt);
@@ -78,11 +64,9 @@ class $modify(PlayLayer) {
 
 class $modify(GJBaseGameLayer)
 {
-	int gamemode = getGamemodeAsInt(this->m_player1);
 	float speed = this->m_player1->m_playerSpeed;
 	float size = this->m_player1->m_vehicleSize;
 
-	// for things that have hooks --------------------------------------------------------------------------
 	void toggleDualMode(GameObject * p0, bool p1, PlayerObject * p2, bool p3)
 	{
 		if (Mod::get()->getSettingValue<bool>("dual"))
@@ -106,13 +90,16 @@ class $modify(GJBaseGameLayer)
 		GJBaseGameLayer::reverseDirection(p0);
 	}
 
-	// for things that don't have hooks -------------------------------------------------------------------
+	void rotateGameplay(RotateGameplayGameObject* p0)
+	{
+		if (Mod::get()->getSettingValue<bool>("rotate"))
+			placeCheckpointNextFrame = true;
+		GJBaseGameLayer::rotateGameplay(p0);
+	}
+
 	void update(float dt)
 	{
 		GJBaseGameLayer::update(dt);
-
-		if (cmpint(gamemode, getGamemodeAsInt(this->m_player1), "gamemode"))
-			placeCheckpointNextFrame = true;
 
 		if (cmpfloat(speed, this->m_player1->m_playerSpeed, "speed"))
 			placeCheckpointNextFrame = true;
@@ -121,53 +108,9 @@ class $modify(GJBaseGameLayer)
 			placeCheckpointNextFrame = true;
 
 		// update things
-		gamemode = getGamemodeAsInt(this->m_player1);
 		speed = this->m_player1->m_playerSpeed;
 		size = this->m_player1->m_vehicleSize;
 	}
 };
 
-// enabled toggle!
-// this kinda breaks with betterpause because for some reason it forces the settings sprite scale to 0.6f
-// but i hope nobody will notice
-class $modify(MyPauseLayer, PauseLayer)
-{
-	void onAutoCheckpointSettings(CCObject* object)
-	{
-		geode::openSettingsPopup(Mod::get());
-	}
-	
-	// for some reason every single fucking time i add my button to ANY of the menus it BREAKS
-	// the layout so instead i'm going to hardcode the positions!!!!
-	void customSetup()
-	{
-		PauseLayer::customSetup();
 
-		if (!Mod::get()->getSettingValue<bool>("pause-layer-btn")) return;
-
-		auto winSize = CCDirector::sharedDirector()->getWinSize();
-
-		auto ccmenu = CCMenu::create();
-		ccmenu->setPosition(CCPoint{ 0, 0 });
-		ccmenu->setID("settings-button-menu"_spr);
-
-		auto* settingsButtonSprite = CCSprite::create("logo.png"_spr);
-		settingsButtonSprite->setScale(0.25f);
-
-		auto settingsBtn = CCMenuItemSpriteExtra::create(
-			settingsButtonSprite,
-			this,
-			menu_selector(MyPauseLayer::onAutoCheckpointSettings)
-		);
-		settingsBtn->setID("settings-button"_spr);
-
-		// hardcoded positions!
-		auto padding = 20;
-		auto btnRadius = settingsBtn->getContentSize().height / 2;
-		auto offset = padding + btnRadius;
-		settingsBtn->setPosition(CCPoint{ winSize.width - offset, offset });
-		
-		ccmenu->addChild(settingsBtn);
-		this->addChild(ccmenu);
-	}
-};

@@ -1,4 +1,6 @@
 # Changelog (what a suprise)
+## v1.2.0
+- Added rotation option
 ## v1.1.3
 - Fixed pause menu texture
 ## v1.1.2
