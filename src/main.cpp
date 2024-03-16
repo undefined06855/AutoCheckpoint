@@ -1,15 +1,10 @@
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
+#include <Geode/modify/PlayerObject.hpp>
 #include "./PauseButton.cpp"
 #include <chrono>
 
 using namespace geode::prelude;
-
-void debLog(std::string str)
-{
-	//if (Mod::get()->getSettingValue<bool>("DEBUG"))
-		std::cout << str << std::endl;
-}
 
 bool cmpint(int first, int second, std::string lockSetting)
 {
@@ -47,16 +42,16 @@ class $modify(PlayLayer)
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (placeCheckpointNextFrame && this->m_player1->m_isDashing) debLog("player is dashing - cant place");
-		else if (placeCheckpointNextFrame) debLog("hasnt been long enough (" + std::to_string(diff) + ")");
+		else if (placeCheckpointNextFrame && this->m_player1->m_isDashing) log::info("player is dashing - cant place");
+		else if (placeCheckpointNextFrame) log::info("hasnt been long enough! ({})", std::to_string(diff));
 
 		if (diff >= Mod::get()->getSettingValue<double>("max-delay") && !this->m_player1->m_isDashing)
 		{
-			debLog("been too long! (" + std::to_string(diff) + ")");
+			log::info("been too long! ({})", std::to_string(diff));
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (diff >= Mod::get()->getSettingValue<double>("max-delay")) debLog("been too long BUT PLAYER IS DASHING :despair:");
+		else if (diff >= Mod::get()->getSettingValue<double>("max-delay")) log::info("been too long BUT PLAYER IS DASHING :despair:");
 
 		placeCheckpointNextFrame = false;
 	}
@@ -75,28 +70,6 @@ class $modify(GJBaseGameLayer)
 		GJBaseGameLayer::toggleDualMode(p0, p1, p2, p3);
 	}
 
-	void flipGravity(PlayerObject* p0, bool upsideDown, bool somethingThatsAlwaysFalse)
-	{
-		if (Mod::get()->getSettingValue<bool>("gravity"))
-			placeCheckpointNextFrame = true;
-
-		GJBaseGameLayer::flipGravity(p0, upsideDown, somethingThatsAlwaysFalse);
-	}
-
-	void reverseDirection(EffectGameObject* p0)
-	{
-		if (Mod::get()->getSettingValue<bool>("direction"))
-			placeCheckpointNextFrame = true;
-		GJBaseGameLayer::reverseDirection(p0);
-	}
-
-	void rotateGameplay(RotateGameplayGameObject* p0)
-	{
-		if (Mod::get()->getSettingValue<bool>("rotate"))
-			placeCheckpointNextFrame = true;
-		GJBaseGameLayer::rotateGameplay(p0);
-	}
-
 	void update(float dt)
 	{
 		GJBaseGameLayer::update(dt);
@@ -113,4 +86,33 @@ class $modify(GJBaseGameLayer)
 	}
 };
 
+class $modify(PlayerObject)
+{
+	void switchedToMode(GameObjectType p0)
+	{
+		PlayerObject::switchedToMode(p0);
+		if (Mod::get()->getSettingValue<bool>("gamemode"))
+			placeCheckpointNextFrame = true;
+	}
 
+	void reversePlayer(EffectGameObject* p0)
+	{
+		PlayerObject::reversePlayer(p0);
+		if (Mod::get()->getSettingValue<bool>("direction"))
+			placeCheckpointNextFrame = true;
+	}
+
+	void rotateGameplay(int p0, int p1, bool p2, float p3, float p4, bool p5, bool p6)
+	{
+		PlayerObject::rotateGameplay(p0, p1, p2, p3, p4, p5, p6);
+		if (Mod::get()->getSettingValue<bool>("rotate"))
+			placeCheckpointNextFrame = true;
+	}
+
+	void flipGravity(bool upsideDown, bool somethingThatsAlwaysFalse)
+	{
+		PlayerObject::flipGravity(upsideDown, somethingThatsAlwaysFalse);
+		if (Mod::get()->getSettingValue<bool>("gravity"))
+			placeCheckpointNextFrame = true;
+	}
+};
