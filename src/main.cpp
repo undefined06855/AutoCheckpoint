@@ -59,8 +59,8 @@ class $modify(PlayLayer)
 
 class $modify(GJBaseGameLayer)
 {
-	float speed = this->m_player1->m_playerSpeed;
-	float size = this->m_player1->m_vehicleSize;
+	float speed = this->m_fields->m_player1->m_playerSpeed;
+	float size = this->m_fields->m_player1->m_vehicleSize;
 
 	void toggleDualMode(GameObject * p0, bool p1, PlayerObject * p2, bool p3)
 	{
@@ -77,12 +77,12 @@ class $modify(GJBaseGameLayer)
 		if (cmpfloat(speed, this->m_player1->m_playerSpeed, "speed"))
 			placeCheckpointNextFrame = true;
 
-		if (cmpfloat(size, this->m_player1->m_vehicleSize, "size"))
+		if (cmpfloat(size, this->m_fields->m_player1->m_vehicleSize, "size"))
 			placeCheckpointNextFrame = true;
 
 		// update things
-		speed = this->m_player1->m_playerSpeed;
-		size = this->m_player1->m_vehicleSize;
+		speed = this->m_fields->m_player1->m_playerSpeed;
+		size = this->m_fields->m_player1->m_vehicleSize;
 	}
 };
 
