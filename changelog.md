@@ -1,4 +1,6 @@
 # Changelog (what a suprise)
+## v1.2.1
+- Fixed android! (have to bump version so it updates)
 ## v1.2.0
 - Used m_fields and moved stuff to PlayerObject (in english: bugfixes)
 - Added rotation option
