@@ -98,22 +98,22 @@ class $modify(PlayerObject)
 			placeCheckpointNextFrame = true;
 	}
 
-	float speed = this->m_fields->m_playerSpeed;
-	float size = this->m_fields->m_vehicleSize;
+	float speed = this->m_playerSpeed;
+	float size = this->m_vehicleSize;
 
 	void update(float dt)
 	{
 		PlayerObject::update(dt);
 
-		if (cmpfloat(speed, this->m_fields->m_playerSpeed, "speed"))
+		if (cmpfloat(m_fields->speed, this->m_playerSpeed, "speed"))
 			placeCheckpointNextFrame = true;
 
-		if (cmpfloat(size, this->m_fields->m_vehicleSize, "size"))
+		if (cmpfloat(m_fields->size, this->m_vehicleSize, "size"))
 			placeCheckpointNextFrame = true;
 
 		// update things
-		speed = this->m_fields->m_playerSpeed;
-		size = this->m_fields->m_vehicleSize;
+		m_fields->speed = this->m_playerSpeed;
+		m_fields->size = this->m_vehicleSize;
 	}
 
 };
