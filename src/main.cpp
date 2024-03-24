@@ -115,5 +115,4 @@ class $modify(PlayerObject)
 		m_fields->speed = this->m_playerSpeed;
 		m_fields->size = this->m_vehicleSize;
 	}
-
 };
