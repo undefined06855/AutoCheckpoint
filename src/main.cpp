@@ -22,13 +22,11 @@ auto lastChk = std::chrono::high_resolution_clock::now();
 
 class $modify(PlayLayer)
 {
+	// this needs to be placed here so that there's a reference to a PlayLayer
 	void postUpdate(float dt)
 	{
 		PlayLayer::postUpdate(dt);
-		// skip everythin if not in practice mode
-		if (!PlayLayer::m_isPracticeMode) return;
-
-		// skip everything if the mod isn't enabled
+		if (!this->m_isPracticeMode) return;
 		if (!Mod::get()->getSettingValue<bool>("enabled")) return;
 
 		// see if it's been some amount of seconds
@@ -36,14 +34,11 @@ class $modify(PlayLayer)
 		// difference between now and last checkpoint time (seconds)
 		auto diff = std::chrono::duration_cast<std::chrono::seconds>(now - lastChk).count();
 
-
 		if (placeCheckpointNextFrame && diff >= Mod::get()->getSettingValue<double>("min-delay") && !this->m_player1->m_isDashing)
 		{
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (placeCheckpointNextFrame && this->m_player1->m_isDashing) log::info("player is dashing - cant place");
-		else if (placeCheckpointNextFrame) log::info("hasnt been long enough! ({})", std::to_string(diff));
 
 		if (diff >= Mod::get()->getSettingValue<double>("max-delay") && !this->m_player1->m_isDashing)
 		{
@@ -51,7 +46,6 @@ class $modify(PlayLayer)
 			lastChk = std::chrono::high_resolution_clock::now();
 			PlayLayer::markCheckpoint();
 		}
-		else if (diff >= Mod::get()->getSettingValue<double>("max-delay")) log::info("been too long BUT PLAYER IS DASHING :despair:");
 
 		placeCheckpointNextFrame = false;
 	}
