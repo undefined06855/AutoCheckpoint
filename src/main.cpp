@@ -59,30 +59,12 @@ class $modify(PlayLayer)
 
 class $modify(GJBaseGameLayer)
 {
-	float speed = this->m_fields->m_player1->m_playerSpeed;
-	float size = this->m_fields->m_player1->m_vehicleSize;
-
 	void toggleDualMode(GameObject * p0, bool p1, PlayerObject * p2, bool p3)
 	{
 		if (Mod::get()->getSettingValue<bool>("dual"))
 			placeCheckpointNextFrame = true;
 
 		GJBaseGameLayer::toggleDualMode(p0, p1, p2, p3);
-	}
-
-	void update(float dt)
-	{
-		GJBaseGameLayer::update(dt);
-
-		if (cmpfloat(speed, this->m_player1->m_playerSpeed, "speed"))
-			placeCheckpointNextFrame = true;
-
-		if (cmpfloat(size, this->m_fields->m_player1->m_vehicleSize, "size"))
-			placeCheckpointNextFrame = true;
-
-		// update things
-		speed = this->m_fields->m_player1->m_playerSpeed;
-		size = this->m_fields->m_player1->m_vehicleSize;
 	}
 };
 
@@ -115,4 +97,23 @@ class $modify(PlayerObject)
 		if (Mod::get()->getSettingValue<bool>("gravity"))
 			placeCheckpointNextFrame = true;
 	}
+
+	float speed = this->m_fields->m_playerSpeed;
+	float size = this->m_fields->m_vehicleSize;
+
+	void update(float dt)
+	{
+		PlayerObject::update(dt);
+
+		if (cmpfloat(speed, this->m_fields->m_playerSpeed, "speed"))
+			placeCheckpointNextFrame = true;
+
+		if (cmpfloat(size, this->m_fields->m_vehicleSize, "size"))
+			placeCheckpointNextFrame = true;
+
+		// update things
+		speed = this->m_fields->m_playerSpeed;
+		size = this->m_fields->m_vehicleSize;
+	}
+
 };
