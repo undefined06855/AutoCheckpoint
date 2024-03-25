@@ -1,7 +1,7 @@
 # Changelog (what a suprise)
 ## v1.2.1
-- Remove anticheat disclosure (v1.2.1 fixed it)
-- Fixed android! (have to bump version so it updates)
+- Remove anticheat disclosure
+- Fixed android and anticheat! (have to bump version so it updates)
 ## v1.2.0
 - Used m_fields and moved stuff to PlayerObject (in english: bugfixes)
 - Added rotation option
