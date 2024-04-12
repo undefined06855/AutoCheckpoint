@@ -6,6 +6,8 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 project(AutoCheckpoint VERSION 1.0.0)
 
+set(GEODE_REVERT_TODO_RETURN ON)
+
 add_library(${PROJECT_NAME} SHARED
     src/main.cpp
     # Add your cpp files here
