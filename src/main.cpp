@@ -91,10 +91,13 @@ class $modify(PlayerObject)
 		if (Mod::get()->getSettingValue<bool>("gravity"))
 			placeCheckpointNextFrame = true;
 	}
+// im esiting from the web and on mobile just to test please ignoee indentation
+	struct Fields {
+
 
 	float speed = this->m_playerSpeed;
 	float size = this->m_vehicleSize;
-
+}
 	void update(float dt)
 	{
 		PlayerObject::update(dt);
