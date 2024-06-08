@@ -96,7 +96,7 @@ class $modify(PlayerObject)
 	{
 		// shit before the update
 		float speed = this->m_playerSpeed;
-		float size = this->m_vehicleSize:
+		float size = this->m_vehicleSize;
 		
 		PlayerObject::update(dt);
 
