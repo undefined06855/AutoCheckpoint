@@ -1,7 +1,7 @@
 {
-	"geode": "3.0.0-alpha.1",
+	"geode": "3.1.1",
 	"gd": { "win": "2.206", "android": "2.206" },
-	"version": "v1.2.3-alpha.1",
+	"version": "v1.2.3",
 	"id": "undefined0.autocheckpoint",
 	"name": "AutoCheckpoint",
 	"developer": "undefined0",

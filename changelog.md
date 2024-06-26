@@ -1,5 +1,5 @@
 # Changelog (what a suprise)
-## v1.2.2
+## v1.2.3
 - Geode 3.1.1 build
 - Removed checkpoint on rotation because of inlining
 ## v1.2.2
