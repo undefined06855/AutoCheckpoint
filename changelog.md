@@ -2,6 +2,8 @@
 ## v1.2.2
 - Geode 3.1.1 build
 - Removed checkpoint on rotation because of inlining
+## v1.2.2
+- Change build from nightly to latest
 ## v1.2.1
 - Remove anticheat disclosure (fixed in prev. version)
 ## v1.2.0
