@@ -1,7 +1,9 @@
 # Changelog (what a suprise)
+## v1.2.2
+- Geode 3.1.1 build
+- Removed checkpoint on rotation because of inlining
 ## v1.2.1
-- Remove anticheat disclosure
-- Fixed android and anticheat! (have to bump version so it updates)
+- Remove anticheat disclosure (fixed in prev. version)
 ## v1.2.0
 - Used m_fields and moved stuff to PlayerObject (in english: bugfixes)
 - Added rotation option

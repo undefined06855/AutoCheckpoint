@@ -78,12 +78,12 @@ class $modify(PlayerObject)
 			placeCheckpointNextFrame = true;
 	}
 
-	void rotateGameplay(int p0, int p1, bool p2, float p3, float p4, bool p5, bool p6)
-	{
-		PlayerObject::rotateGameplay(p0, p1, p2, p3, p4, p5, p6);
-		if (Mod::get()->getSettingValue<bool>("rotate"))
-			placeCheckpointNextFrame = true;
-	}
+	//void rotateGameplay(int p0, int p1, bool p2, float p3, float p4, bool p5, bool p6)
+	//{
+	//	PlayerObject::rotateGameplay(p0, p1, p2, p3, p4, p5, p6);
+	//	if (Mod::get()->getSettingValue<bool>("rotate"))
+	//		placeCheckpointNextFrame = true;
+	//}
 
 	void flipGravity(bool upsideDown, bool somethingThatsAlwaysFalse)
 	{
